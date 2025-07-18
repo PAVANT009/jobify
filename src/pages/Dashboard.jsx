@@ -315,10 +315,16 @@ export default function Dashboard() {
                     <p className="mt-2 text-gray-600 line-clamp-3">{job.description}</p>
                     {user.role === "user" && (
                       job.applicants?.some(app => app._id === user._id) ? (
-                        <button className="btn btn-disabled mt-4">Applied</button>
+                        <button
+                          className="group relative px-4 py-2 bg-green-100/30 backdrop-blur-sm text-green-700 rounded-lg border border-green-300 flex items-center gap-2 font-semibold shadow mt-4"
+                          disabled
+                        >
+                          <svg className="w-5 h-5 text-green-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+                          Applied
+                        </button>
                       ) : (
                         <button
-                          className="btn btn-primary mt-4"
+                          className="group relative px-4 py-2 bg-white/10 backdrop-blur-sm text-indigo-700 rounded-lg border border-indigo-200 hover:bg-white/20 transition-all duration-300 flex items-center gap-2 font-semibold shadow mt-4"
                           onClick={(e) => {
                             e.stopPropagation();
                             applyToJob(job._id);
@@ -347,7 +353,7 @@ export default function Dashboard() {
                   <button className="btn btn-disabled btn-outline mt-6 w-full">Applied</button>
                 ) : (
                   <button
-                    className="btn btn-primary mt-6 w-full"
+                    className="group relative px-4 py-2 bg-white/10 backdrop-blur-sm text-indigo-700 rounded-lg border border-indigo-200 hover:bg-white/20 transition-all duration-300 flex items-center gap-2 font-semibold shadow mt-6 w-full"
                     onClick={() => {
                       applyToJob(selectedJob._id);
                       setShowJobModal(false);

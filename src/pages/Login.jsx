@@ -68,7 +68,7 @@ export default function Login() {
           </div>
 
           <div className="form-control mb-4">
-            <button type="submit" className="btn btn-primary w-full rounded-full tracking-wide">Login</button>
+            <button type="submit" className="btn btn-sm bg-white text-indigo-600 hover:bg-gray-100 border-none w-full rounded-full py-2 font-semibold text-lg shadow-md transition duration-200">Login</button>
           </div>
 
           <div className="text-center">

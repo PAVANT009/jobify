@@ -149,7 +149,7 @@ export default function Register() {
           )}
 
           <div className="form-control mb-4">
-            <button type="submit" className="btn bg-indigo-600 hover:bg-indigo-700 text-white w-full rounded-full py-2 font-semibold text-lg shadow-md transition duration-200">Register</button>
+            <button type="submit" className="btn btn-sm bg-white text-indigo-600 hover:bg-gray-100 border-none w-full rounded-full py-2 font-semibold text-lg shadow-md transition duration-200">Register</button>
           </div>
 
           <div className="text-center">

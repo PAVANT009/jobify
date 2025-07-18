@@ -52,13 +52,13 @@ export default function Navbar() {
             <>
               <Link
                 to="/login"
-                className="btn btn-sm bg-white text-indigo-600 hover:bg-gray-100 border-none"
+                className="group relative px-4 py-2 bg-white/10 backdrop-blur-sm text-white rounded-lg border border-white/20 hover:bg-white/20 transition-all duration-300 flex items-center gap-2"
               >
                 Login
               </Link>
               <Link
                 to="/register"
-                className="btn btn-sm bg-white text-indigo-600 hover:bg-gray-100 border-none"
+                className="group relative px-4 py-2 bg-white/10 backdrop-blur-sm text-white rounded-lg border border-white/20 hover:bg-white/20 transition-all duration-300 flex items-center gap-2"
               >
                 Register
               </Link>
