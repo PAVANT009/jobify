@@ -13,7 +13,15 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware
-app.use(cors());
+const allowedOrigins = [
+  'http://localhost:3000', 
+  'https://jobify-e7kfqz1ld-pavant009s-projects.vercel.app/', 
+];
+
+app.use(cors({
+  origin: allowedOrigins,
+  credentials: true, // only if you use cookies/auth
+}));
 app.use(express.json());
 
 // Routes
