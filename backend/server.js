@@ -14,14 +14,23 @@ const PORT = process.env.PORT || 'https://jobify-c04l.onrender.com/';
 
 // Middleware
 const allowedOrigins = [
-  'http://localhost:3000', 
-  'https://jobify-virid.vercel.app/', 
+  'http://localhost:3000',
+  'https://jobify.vercel.app', // your production domain (change if needed)
 ];
 
-app.use(cors({
-  origin: allowedOrigins,
-  credentials: true, // only if you use cookies/auth
-}));
+function corsOptionsDelegate(req, callback) {
+  const origin = req.header('Origin');
+  if (
+    allowedOrigins.includes(origin) ||
+    /^https:\/\/jobify-[\w-]+-pavant009s-projects\.vercel\.app$/.test(origin)
+  ) {
+    callback(null, { origin: true, credentials: true });
+  } else {
+    callback(null, { origin: false });
+  }
+}
+
+app.use(cors(corsOptionsDelegate));
 app.use(express.json());
 
 // Routes
