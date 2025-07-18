@@ -2,7 +2,7 @@ import { createContext, useContext, useState, useEffect } from "react";
 import axios from "axios";
 
 const AuthContext = createContext();
-const API = process.env.REACT_APP_API_URL + "/api";
+const API = "https://jobify-c04l.onrender.com/api";
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 
-const API = process.env.REACT_APP_API_URL + "/api";
+const API = "https://jobify-c04l.onrender.com/api";
 
 export default function MyApplications() {
   const { token } = useAuth();
