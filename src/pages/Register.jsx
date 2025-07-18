@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useToast } from "../context/ToastContext";
 
 export default function Register() {
@@ -31,57 +31,78 @@ export default function Register() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-base-200">
-      <form onSubmit={handleSubmit} className="card w-full max-w-md bg-base-100 shadow-xl p-8">
-        <h2 className="text-2xl font-bold mb-6 text-center">Register</h2>
-        {error && <p className="text-error text-sm mb-3">{error}</p>}
-        <div className="form-control mb-4">
-          <input
-            type="text"
-            name="name"
-            placeholder="Name"
-            value={form.name}
-            onChange={handleChange}
-            className="input input-bordered w-full"
-            required
-          />
-        </div>
-        <div className="form-control mb-4">
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            value={form.email}
-            onChange={handleChange}
-            className="input input-bordered w-full"
-            required
-          />
-        </div>
-        <div className="form-control mb-4">
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={form.password}
-            onChange={handleChange}
-            className="input input-bordered w-full"
-            required
-          />
-        </div>
-        <div className="form-control mb-6">
-          <select
-            name="role"
-            value={form.role}
-            onChange={handleChange}
-            className="select select-bordered w-full"
-          >
-            <option value="user">User</option>
-            <option value="admin">Admin</option>
-          </select>
-        </div>
-        <button type="submit" className="btn btn-primary w-full">
-          Register
-        </button>
-      </form>
+      <div className="card w-full max-w-md bg-base-100 shadow-xl">
+        <form onSubmit={handleSubmit} className="card-body">
+          <h2 className="card-title text-2xl mb-4 justify-center">Create an Account</h2>
+          {error && <p className="text-error text-sm text-center mb-2">{error}</p>}
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text">Name</span>
+            </label>
+            <input
+              type="text"
+              name="name"
+              placeholder="Enter your name"
+              value={form.name}
+              onChange={handleChange}
+              className="input input-bordered w-full"
+              required
+            />
+          </div>
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text">Email</span>
+            </label>
+            <input
+              type="email"
+              name="email"
+              placeholder="Enter your email"
+              value={form.email}
+              onChange={handleChange}
+              className="input input-bordered w-full"
+              required
+            />
+          </div>
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text">Password</span>
+            </label>
+            <input
+              type="password"
+              name="password"
+              placeholder="Create a password"
+              value={form.password}
+              onChange={handleChange}
+              className="input input-bordered w-full"
+              required
+            />
+          </div>
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text">Role</span>
+            </label>
+            <select
+              name="role"
+              value={form.role}
+              onChange={handleChange}
+              className="select select-bordered w-full"
+            >
+              <option value="user">User</option>
+              <option value="admin">Admin</option>
+            </select>
+          </div>
+          <div className="form-control mt-6">
+            <button type="submit" className="btn btn-primary w-full">
+              Register
+            </button>
+          </div>
+          <div className="text-center mt-4">
+            <Link to="/login" className="text-sm link link-hover">
+              Already have an account? Login
+            </Link>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }
