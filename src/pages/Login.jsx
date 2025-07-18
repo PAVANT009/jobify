@@ -1,3 +1,4 @@
+// Improved Login Page UI with vibrant and styled input elements
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate, Link } from "react-router-dom";
@@ -25,48 +26,53 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-base-200">
-      <div className="card w-full max-w-md bg-base-100 shadow-xl">
-        <form onSubmit={handleSubmit} className="card-body">
-          <h2 className="card-title text-2xl mb-4 justify-center">Welcome Back!</h2>
-          {error && <p className="text-error text-sm text-center mb-2">{error}</p>}
-          <div className="form-control">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-sky-100 to-indigo-100">
+      <div className="card w-full max-w-md bg-white shadow-2xl rounded-2xl border border-gray-200 p-6">
+        <form onSubmit={handleSubmit} className="card-body p-0">
+          <h2 className="text-3xl font-bold text-center text-indigo-600 mb-1">Welcome Back!</h2>
+          <p className="text-sm text-center text-gray-500 mb-4">Login to access job listings and apply instantly</p>
+          {error && <p className="text-error text-sm text-center mb-3">{error}</p>}
+
+          <div className="form-control mb-4">
             <label className="label">
-              <span className="label-text">Email</span>
+              <span className="label-text text-gray-700 font-medium">Email</span>
             </label>
             <input
               type="email"
               name="email"
-              placeholder="Enter your email"
               value={form.email}
               onChange={handleChange}
-              className="input input-bordered w-full"
+              className="w-full px-4 py-2 border-2 border-indigo-200 focus:border-indigo-500 focus:outline-none rounded-xl bg-gray-50 text-gray-800 placeholder-gray-400 shadow-sm"
+              placeholder="Enter your email"
               required
+              autoComplete="email"
+              aria-label="Email"
             />
           </div>
-          <div className="form-control">
+
+          <div className="form-control mb-6">
             <label className="label">
-              <span className="label-text">Password</span>
+              <span className="label-text text-gray-700 font-medium">Password</span>
             </label>
             <input
               type="password"
               name="password"
-              placeholder="Enter your password"
               value={form.password}
               onChange={handleChange}
-              className="input input-bordered w-full"
+              className="w-full px-4 py-2 border-2 border-indigo-200 focus:border-indigo-500 focus:outline-none rounded-xl bg-gray-50 text-gray-800 placeholder-gray-400 shadow-sm"
+              placeholder="Enter your password"
               required
+              autoComplete="current-password"
+              aria-label="Password"
             />
           </div>
-          <div className="form-control mt-6">
-            <button type="submit" className="btn btn-primary w-full">
-              Login
-            </button>
+
+          <div className="form-control mb-4">
+            <button type="submit" className="btn btn-primary w-full rounded-full tracking-wide">Login</button>
           </div>
-          <div className="text-center mt-4">
-            <Link to="/register" className="text-sm link link-hover">
-              Don't have an account? Register
-            </Link>
+
+          <div className="text-center">
+            <Link to="/register" className="text-sm text-indigo-600 hover:underline">Don't have an account? Register</Link>
           </div>
         </form>
       </div>

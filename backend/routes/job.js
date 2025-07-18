@@ -1,6 +1,8 @@
 import express from "express";
 import mongoose from "mongoose";
 import { verifyToken, isAdmin } from "../middleware/authMiddleware.js";
+import nodemailer from "nodemailer";
+import User from "../models/User.js";
 
 const router = express.Router();
 
@@ -32,14 +34,51 @@ const jobSchema = new mongoose.Schema({
     ],
     required: true
   },
+  interests: [{ type: String }], // Array of interest/category strings
   applicants: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
 });
 const Job = mongoose.model("Job", jobSchema);
+
+// Email utility (basic, using placeholder SMTP config)
+const transporter = nodemailer.createTransport({
+  host: process.env.SMTP_HOST || "smtp.ethereal.email", // Use Ethereal for testing
+  port: process.env.SMTP_PORT || 587,
+  auth: {
+    user: process.env.SMTP_USER || "", // Set in .env for real use
+    pass: process.env.SMTP_PASS || ""
+  }
+});
+
+async function sendJobNotificationEmail(to, job) {
+  const mailOptions = {
+    from: 'no-reply@jobify.com',
+    to,
+    subject: `New Job Matching Your Interests: ${job.title}`,
+    text: `A new job has been posted that matches your interests!\n\nTitle: ${job.title}\nCompany: ${job.company}\nLocation: ${job.location}\nCategory: ${job.category}\nDescription: ${job.description}\n\nLogin to Jobify to view and apply.`
+  };
+  await transporter.sendMail(mailOptions);
+}
 
 // Admin: POST /api/job/create
 router.post("/create", verifyToken, isAdmin, async (req, res) => {
   try {
     const job = await Job.create(req.body);
+    // Notify users with matching interests
+    if (Array.isArray(job.interests) && job.interests.length > 0) {
+      const users = await User.find({
+        role: "user",
+        interests: { $in: job.interests },
+        email: { $ne: undefined }
+      });
+      for (const user of users) {
+        try {
+          await sendJobNotificationEmail(user.email, job);
+        } catch (e) {
+          // Log and continue
+          console.error(`Failed to email ${user.email}:`, e.message);
+        }
+      }
+    }
     res.status(201).json(job);
   } catch (err) {
     res.status(500).json({ msg: "Server error" });

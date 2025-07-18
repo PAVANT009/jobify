@@ -6,6 +6,7 @@ const userSchema = new mongoose.Schema({
   email: { type: String, unique: true },
   password: String,
   role: { type: String, enum: ["user", "admin"], default: "user" },
+  interests: [{ type: String }], // Array of interest/category strings
 });
 
 // Hash password before saving

@@ -16,4 +16,18 @@ router.get("/profile", verifyToken, async (req, res) => {
   }
 });
 
+// PUT /api/user/interests
+router.put("/interests", verifyToken, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id);
+    if (!user) return res.status(404).json({ msg: "User not found" });
+    if (user.role !== "user") return res.status(403).json({ msg: "Only users can update interests" });
+    user.interests = Array.isArray(req.body.interests) ? req.body.interests : [];
+    await user.save();
+    res.json({ interests: user.interests });
+  } catch (err) {
+    res.status(500).json({ msg: "Server error" });
+  }
+});
+
 export default router;

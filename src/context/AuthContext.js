@@ -15,12 +15,13 @@ export const AuthProvider = ({ children }) => {
     setUser(res.data.user);
   };
 
-  const register = async (name, email, password, role = "user") => {
+  const register = async (name, email, password, role = "user", interests = []) => {
     await axios.post(`${API}/auth/register`, {
       name,
       email,
       password,
       role,
+      interests,
     });
   };
 
