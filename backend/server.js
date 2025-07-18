@@ -15,7 +15,7 @@ const PORT = process.env.PORT || 'https://jobify-c04l.onrender.com/';
 // Middleware
 const allowedOrigins = [
   'http://localhost:3000', 
-  'https://jobify-e7kfqz1ld-pavant009s-projects.vercel.app/', 
+  'https://jobify-virid.vercel.app/', 
 ];
 
 app.use(cors({
