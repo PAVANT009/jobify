@@ -6,7 +6,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "../context/ToastContext";
 
-const API = "http://localhost:5000/api";
+const API = process.env.REACT_APP_API_URL + "/api";
 const INTEREST_OPTIONS = [
   "Frontend Developer",
   "Backend Developer",
