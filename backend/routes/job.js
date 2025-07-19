@@ -6,7 +6,6 @@ import User from "../models/User.js";
 
 const router = express.Router();
 
-// Job model
 const jobSchema = new mongoose.Schema({
   title: String,
   company: String,
@@ -34,17 +33,16 @@ const jobSchema = new mongoose.Schema({
     ],
     required: true
   },
-  interests: [{ type: String }], // Array of interest/category strings
+  interests: [{ type: String }],
   applicants: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
 });
 const Job = mongoose.model("Job", jobSchema);
 
-// Email utility (basic, using placeholder SMTP config)
 const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST || "smtp.ethereal.email", // Use Ethereal for testing
+  host: process.env.SMTP_HOST || "smtp.ethereal.email",
   port: process.env.SMTP_PORT || 587,
   auth: {
-    user: process.env.SMTP_USER || "", // Set in .env for real use
+    user: process.env.SMTP_USER || "",
     pass: process.env.SMTP_PASS || ""
   }
 });
@@ -59,11 +57,9 @@ async function sendJobNotificationEmail(to, job) {
   await transporter.sendMail(mailOptions);
 }
 
-// Admin: POST /api/job/create
 router.post("/create", verifyToken, isAdmin, async (req, res) => {
   try {
     const job = await Job.create(req.body);
-    // Notify users with matching interests
     if (Array.isArray(job.interests) && job.interests.length > 0) {
       const users = await User.find({
         role: "user",
@@ -74,7 +70,6 @@ router.post("/create", verifyToken, isAdmin, async (req, res) => {
         try {
           await sendJobNotificationEmail(user.email, job);
         } catch (e) {
-          // Log and continue
           console.error(`Failed to email ${user.email}:`, e.message);
         }
       }
@@ -85,7 +80,6 @@ router.post("/create", verifyToken, isAdmin, async (req, res) => {
   }
 });
 
-// All Users: GET /api/job/all
 router.get("/all", async (req, res) => {
   try {
     const jobs = await Job.find().populate("applicants", "name email");
@@ -95,7 +89,6 @@ router.get("/all", async (req, res) => {
   }
 });
 
-// Users: POST /api/job/apply/:id
 router.post("/apply/:id", verifyToken, async (req, res) => {
   try {
     const job = await Job.findById(req.params.id);
@@ -113,7 +106,6 @@ router.post("/apply/:id", verifyToken, async (req, res) => {
   }
 });
 
-// Users: GET /api/job/applied
 router.get("/applied", verifyToken, async (req, res) => {
   try {
     const jobs = await Job.find({ applicants: req.user.id });

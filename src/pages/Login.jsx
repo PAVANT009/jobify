@@ -1,4 +1,3 @@
-// Improved Login Page UI with vibrant and styled input elements
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate, Link } from "react-router-dom";

@@ -4,7 +4,6 @@ import User from "../models/User.js";
 
 const router = express.Router();
 
-// GET /api/user/profile
 router.get("/profile", verifyToken, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select("-password");
@@ -16,7 +15,6 @@ router.get("/profile", verifyToken, async (req, res) => {
   }
 });
 
-// PUT /api/user/interests
 router.put("/interests", verifyToken, async (req, res) => {
   try {
     const user = await User.findById(req.user.id);

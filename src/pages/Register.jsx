@@ -1,4 +1,3 @@
-// Improved Register Page UI with vibrant color scheme and styled input elements
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate, Link } from "react-router-dom";
@@ -126,7 +125,6 @@ export default function Register() {
             </select>
           </div>
 
-          {/* Interest selection for users only */}
           {form.role === "user" && (
             <div className="form-control mb-6">
               <label className="label">

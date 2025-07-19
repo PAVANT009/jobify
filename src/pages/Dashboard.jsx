@@ -1,5 +1,3 @@
-// Dashboard.jsx
-
 import { useAuth } from "../context/AuthContext";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -49,7 +47,6 @@ export default function Dashboard() {
 
   useEffect(() => {
     if (!user) navigate("/login");
-    // Show interest modal if user is regular user and has no interests
     if (user && user.role === "user" && (!user.interests || user.interests.length === 0)) {
       setShowInterestModal(true);
     }
@@ -73,7 +70,6 @@ export default function Dashboard() {
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
 
-  // Handler for job interests selection (admin)
   const handleJobInterestChange = (interest) => {
     setForm((prev) => ({
       ...prev,
@@ -116,7 +112,6 @@ export default function Dashboard() {
     }
   };
 
-  // Handler for interest selection
   const handleInterestChange = (interest) => {
     setSelectedInterests((prev) =>
       prev.includes(interest)
@@ -124,7 +119,6 @@ export default function Dashboard() {
         : [...prev, interest]
     );
   };
-  // Handler for submitting interests
   const handleSubmitInterests = async () => {
     try {
       await axios.put(
@@ -133,8 +127,7 @@ export default function Dashboard() {
         { headers: { Authorization: `Bearer ${token}` } }
       );
       showToast("Interests saved!", "success");
-      // Update user context (fetch profile again)
-      window.location.reload(); // simplest way to refresh user/interests
+      window.location.reload();
     } catch {
       showToast("Failed to save interests", "error");
     }
@@ -144,7 +137,6 @@ export default function Dashboard() {
 
   return (
     <div className="bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100 min-h-screen p-6">
-      {/* Interest Selection Modal */}
       {showInterestModal && (
         <div className="modal modal-open">
           <div className="modal-box max-w-lg">
@@ -221,7 +213,6 @@ export default function Dashboard() {
                 </option>
               ))}
             </select>
-            {/* Interests selection for job */}
             <div className="md:col-span-2">
               <label className="font-semibold text-indigo-700 mb-2 block">Relevant Interests (for notifications):</label>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">

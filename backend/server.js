@@ -1,4 +1,3 @@
-// server.js
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
@@ -12,10 +11,9 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 'https://jobify-c04l.onrender.com/';
 
-// Middleware
 const allowedOrigins = [
   'http://localhost:3000',
-  'https://jobify.vercel.app', // your production domain (change if needed)
+  'https://jobify.vercel.app',
 ];
 
 function corsOptionsDelegate(req, callback) {
@@ -33,23 +31,19 @@ function corsOptionsDelegate(req, callback) {
 app.use(cors(corsOptionsDelegate));
 app.use(express.json());
 
-// Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/job", jobRoutes);
 
-// MongoDB connection
 mongoose
   .connect(process.env.MONGO_URL)
   .then(() => console.log("✅ MongoDB connected"))
   .catch((err) => console.error("❌ MongoDB connection error:", err));
 
-// Root route
 app.get("/", (req, res) => {
   res.send("JobBoard API is live 🚀");
 });
 
-// Start server
 app.listen(PORT, () => {
   console.log(`⚡ Server running on port ${PORT}`);
 });
