@@ -88,7 +88,7 @@ router.post("/create", verifyToken, isAdmin, async (req, res) => {
 // All Users: GET /api/job/all
 router.get("/all", async (req, res) => {
   try {
-    const jobs = await Job.find().populate("applicants", "name email");
+    const jobs = await Job.find().populate("applicants", "name email linkedin");
     res.json(jobs);
   } catch (err) {
     res.status(500).json({ msg: "Server error" });
@@ -124,3 +124,4 @@ router.get("/applied", verifyToken, async (req, res) => {
 });
 
 export default router;
+
