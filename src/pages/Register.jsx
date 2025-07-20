@@ -33,6 +33,7 @@ export default function Register() {
     password: "",
     role: "user",
     interests: [],
+    linkedin: "",
   });
   const [error, setError] = useState("");
 
@@ -50,7 +51,7 @@ export default function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await register(form.name, form.email, form.password, form.role, form.interests);
+      await register(form.name, form.email, form.password, form.role, form.interests, form.linkedin);
       showToast("Registration successful!", "success");
       navigate("/dashboard");
     } catch {
@@ -149,6 +150,21 @@ export default function Register() {
           )}
 
           <div className="form-control mb-4">
+            <label className="label">
+              <span className="label-text text-gray-800 font-semibold">LinkedIn Profile URL</span>
+            </label>
+            <input
+              type="url"
+              name="linkedin"
+              value={form.linkedin}
+              onChange={handleChange}
+              className="w-full px-5 py-3 border border-indigo-300 focus:border-indigo-600 focus:ring-2 focus:ring-indigo-100 focus:outline-none rounded-xl bg-white text-gray-900 placeholder-gray-400 shadow-sm transition duration-200"
+              placeholder="https://www.linkedin.com/in/yourprofile"
+              required
+            />
+          </div>
+
+          <div className="form-control mb-4">
             <button type="submit" className="btn btn-sm bg-white text-indigo-600 hover:bg-gray-100 border-none w-full rounded-full py-2 font-semibold text-lg shadow-md transition duration-200">Register</button>
           </div>
 
@@ -160,3 +176,4 @@ export default function Register() {
     </div>
   );
 }
+
