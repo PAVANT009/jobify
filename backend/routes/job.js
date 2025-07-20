@@ -34,13 +34,12 @@ const jobSchema = new mongoose.Schema({
     ],
     required: true
   },
-  interests: [{ type: String }], // Array of interest/category strings
+  interests: [{ type: String }],  
   applicants: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
 });
 const Job = mongoose.model("Job", jobSchema);
 
-// Email utility (basic, using placeholder SMTP config)
-const transporter = nodemailer.createTransport({
+ const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST || "smtp.ethereal.email", // Use Ethereal for testing
   port: process.env.SMTP_PORT || 587,
   auth: {
@@ -88,7 +87,7 @@ router.post("/create", verifyToken, isAdmin, async (req, res) => {
 // All Users: GET /api/job/all
 router.get("/all", async (req, res) => {
   try {
-    const jobs = await Job.find().populate("applicants", "name email linkedin");
+    const jobs = await Job.find().populate("applicants", "_id name email linkedin");
     res.json(jobs);
   } catch (err) {
     res.status(500).json({ msg: "Server error" });
@@ -124,4 +123,3 @@ router.get("/applied", verifyToken, async (req, res) => {
 });
 
 export default router;
-
