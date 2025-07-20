@@ -391,7 +391,7 @@ export default function Dashboard() {
                     <span className="badge badge-outline badge-info w-fit mt-1">{job.category}</span>
                     <p className="mt-2 text-gray-600 line-clamp-3">{job.description}</p>
                     {user.role === "user" && (
-                      job.applicants?.some(app => app._id === user.id) ? (
+                      job.applicants?.some(app => app._id === user._id) ? (
                         <button
                           className="group relative px-4 py-2 bg-green-100/30 backdrop-blur-sm text-green-700 rounded-lg border border-green-300 flex items-center gap-2 font-semibold shadow mt-4"
                           disabled
@@ -486,7 +486,7 @@ export default function Dashboard() {
                   <span className="badge badge-outline badge-info">{selectedJob.category}</span>
                   <p className="mt-4 whitespace-pre-line text-gray-700">{selectedJob.description}</p>
                   {user.role === "user" && (
-                    selectedJob.applicants?.some(app => app._id === user.id) ? (
+                    selectedJob.applicants?.some(app => app._id === user._id) ? (
                       <button className="btn btn-disabled btn-outline mt-6 w-full">Applied</button>
                     ) : (
                       <button
@@ -517,5 +517,7 @@ export default function Dashboard() {
       </div>
     </div>
   );
+}
+
 }
 
