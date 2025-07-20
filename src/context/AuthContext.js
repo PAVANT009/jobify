@@ -15,14 +15,19 @@ export const AuthProvider = ({ children }) => {
     setUser(res.data.user);
   };
 
-  const register = async (name, email, password, role = "user", interests = []) => {
-    await axios.post(`${API}/auth/register`, {
+  const register = async (name, email, password, role = "user", interests = [], linkedin = "") => {
+    const res = await axios.post(`${API}/auth/register`, {
       name,
       email,
       password,
       role,
       interests,
+      linkedin,
     });
+    // Set user state after successful registration
+    if (res.data.user) {
+      setUser(res.data.user);
+    }
   };
 
   const logout = () => {
@@ -56,3 +61,4 @@ export const AuthProvider = ({ children }) => {
 };
 
 export const useAuth = () => useContext(AuthContext);
+
