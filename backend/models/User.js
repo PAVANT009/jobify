@@ -7,6 +7,7 @@ const userSchema = new mongoose.Schema({
   password: String,
   role: { type: String, enum: ["user", "admin"], default: "user" },
   interests: [{ type: String }], // Array of interest/category strings
+  linkedin: { type: String }, // LinkedIn URL
 });
 
 // Hash password before saving
