@@ -315,7 +315,7 @@ The JobBoard application represents a successful implementation of modern web de
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
+   git clone <https://github.com/PAVANT009/jobify.git>
    cd jobboard
    ```
 
